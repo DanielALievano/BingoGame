@@ -1,0 +1,65 @@
+import java.util.Random;
+
+public class BingoGame {
+
+    private int[][] cardArray = new int[5][5];
+
+    public BingoGame() {
+        Random random = new Random();
+        int number;
+
+        for (int col = 0; col < 5; col++) {
+            for (int row = 0; row < 5; row++) {
+                if (col == 0) {
+                    do {
+                        number = random.nextInt(15) + 1;
+                    } while (checkForDuplicates(col, number));
+                    cardArray[row][col] = number;
+                } else if (col == 1) {
+                    do {
+                        number = random.nextInt(15) + 16;
+                    } while (checkForDuplicates(col, number));
+                    cardArray[row][col] = number;
+                } else if (col == 2) {
+                    do {
+                        number = random.nextInt(15) + 31;
+                    } while (checkForDuplicates(col, number));
+                    cardArray[row][col] = number;
+                } else if (col == 3) {
+                    do {
+                        number = random.nextInt(15) + 46;
+                    } while (checkForDuplicates(col, number));
+                    cardArray[row][col] = number;
+                } else if (col == 4) {
+                    do {
+                        number = random.nextInt(15) + 61;
+                    } while (checkForDuplicates(col, number));
+                    cardArray[row][col] = number;
+                }
+            }
+        }
+    }
+
+    public boolean checkForDuplicates(int col, int number) {
+        for (int row = 0; row < 5; row++) {
+            if (cardArray[row][col] == number) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void markNumber(int number) {
+        for (int row = 0; row < 5; row++) {
+            for (int col = 0; col < 5; col++) {
+                if (cardArray[row][col] == number) {
+                    cardArray[row][col] = 0;
+                }
+            }
+        }
+    }
+
+    public boolean hasBingo() {
+        boolean gameWon = false;
+
+        // Horizontal check
